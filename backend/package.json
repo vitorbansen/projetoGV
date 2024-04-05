@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "migration:up": "npx prisma migrate dev",
-    "dev": "npm run migration:up && tsx watch app.ts"
+    "services:up": "docker-compose -f src/infra/docker-compose.yml up -d",
+    "services:down": "docker-compose -f src/infra/docker-compose.yml down",
+    "dev": "npm run services:up && npm run migration:up && tsx watch app.ts && npm run services:stop"
   },
   "keywords": [],
   "author": "",
