@@ -1,9 +1,23 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+    const [userData, setUserData] = useState([])
+
+    useEffect(() => {
+      async function getData() {
+        const userDataApi = await api.get('/user')
+
+        setUserData(userDataApi.data?.data)
+      }
+
+      getData()
+    }, [])
+
     return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
@@ -46,6 +60,13 @@ export default function Home() {
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
         <p>Tinho passou por aqui...</p>
+        {
+          userData?.length > 0
+          ?
+          <p>{JSON.stringify(userData)}</p>
+          :
+          <p>Nenhum usuário encontrado</p>
+        }
       </div>
     </main>
   )

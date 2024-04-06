@@ -1,8 +1,13 @@
 import express from 'express'
+import cors from 'cors'
 import { PrismaClient } from '@prisma/client'
 
 const app = express()
 const prisma = new PrismaClient()
+
+app.use(cors({
+    origin: 'http://localhost:3000'
+}))
 
 app.get('/user', async (req, res) => {
     const readUser = await prisma.user.findMany({})
@@ -15,5 +20,5 @@ app.get('/user', async (req, res) => {
 })
 
 app.listen(3333, () => {
-    console.log('VAMOOO')
+    console.log('server is running')
 })

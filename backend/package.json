@@ -6,7 +6,7 @@
   "scripts": {
     "migration:up": "npx prisma migrate dev",
     "services:up": "docker-compose -f src/infra/docker-compose.yml up -d",
-    "services:down": "docker-compose -f src/infra/docker-compose.yml down",
+    "services:stop": "docker-compose -f src/infra/docker-compose.yml stop",
     "dev": "npm run services:up && npm run migration:up && tsx watch app.ts && npm run services:stop"
   },
   "keywords": [],
@@ -14,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.12.0",
-    "express": "^4.19.2"
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
